@@ -19,6 +19,7 @@ class IrisAlerter(Alerter):
         self.ca_cert = self.rule.get('iris_ca_cert')
         self.ignore_ssl_errors = self.rule.get('iris_ignore_ssl_errors', False)
         self.description = self.rule.get('iris_description', None)
+        self.source = self.rule.get('iris_source', "ElastAlert2")
         self.overwrite_timestamp = self.rule.get('iris_overwrite_timestamp', False)
         self.type = self.rule.get('iris_type', 'alert')
         self.case_template_id = self.rule.get('iris_case_template_id', None)
@@ -78,7 +79,7 @@ class IrisAlerter(Alerter):
         alert_data = {
             "alert_title": self.rule.get('name'),
             "alert_description": self.description,
-            "alert_source": "ElastAlert2",
+            "alert_source": self.source,
             "alert_severity_id": self.alert_severity_id,
             "alert_status_id": self.alert_status_id,
             "alert_source_event_time": event_timestamp,
